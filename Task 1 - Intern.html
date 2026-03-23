@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>Marvinrose - Task 1</title>
+        <style>.block { background-color:gainsboro; padding:1em; } </style>
+    </head>
+    <body>
+        <h1>Marvinrose - Task 1</h1>
+        <h2>My code:</h2>
+        <p id="code" class="block"></p>
+        <h2>Results of my code:</h2>
+        <p id="results" class="block"></p>
+        <script id="task_id">
+            // INPUT
+            let data = [
+                {"page_id": 6682420, "creation_date": "2021-09-13", "title": "André Baniwa"},
+                {"page_id": 4246775, "creation_date": "2013-12-10", "title": "Benki Piyãko"},
+                {"page_id": 5882073, "creation_date": "2018-12-03", "title": "Célia Xakriabá"},
+                {"page_id": 6977673, "creation_date": "2022-10-05", "title": "Chirley Pankará"},
+                {"page_id": 7069044, "creation_date": "2023-02-16", "title": "Cristine Takuá"},
+                {"page_id": 2119511, "creation_date": "2009-01-28", "title": "Eliane Potiguara"},
+                {"page_id": 6714407, "creation_date": "2021-10-09", "title": "Jaider Esbell"},
+                {"page_id": 6977117, "creation_date": "2022-10-04", "title": "Jerônimo Rodrigues"},
+                {"page_id": 6935831, "creation_date": "2022-08-02", "title": "Nanblá Gakran"},
+                {"page_id": 4908665, "creation_date": "2015-11-13", "title": "Sônia Guajajara"},
+                {"page_id": 5886895, "creation_date": "2018-12-12", "title": "Vãngri Kaingáng"},
+                {"page_id": 6549130, "creation_date": "2021-04-10", "title": "Zezico Guajajara"},
+            ];
+
+            // ── Helper: format "YYYY-MM-DD" → "Month Day, Year" ──────────────
+            //
+            // WHY not just new Date("2021-09-13")?
+            // Date-only strings are parsed as UTC midnight. In timezones west of
+            // UTC (e.g. UTC-3 in Brazil) that flips back one calendar day, so
+            // "2021-09-13" would display as "September 12, 2021". Splitting the
+            // parts manually and using new Date(year, month-1, day) creates a
+            // local-midnight date that always matches the stored string exactly.
+            function formatDate(dateStr) {
+                var parts = dateStr.split("-");
+                var year  = parseInt(parts[0], 10);
+                var month = parseInt(parts[1], 10) - 1;  // JS months are 0-indexed
+                var day   = parseInt(parts[2], 10);
+                return new Date(year, month, day).toLocaleDateString("en-US", {
+                    year: "numeric", month: "long", day: "numeric"
+                });
+            }
+
+            // ── Helper: escape HTML special chars to prevent broken output ────
+            //
+            // Article titles come from the data array. If a title ever contained
+            // < > & " it would break innerHTML. This is a basic safety habit.
+            function escapeHtml(str) {
+                return String(str)
+                    .replace(/&/g, "&amp;")
+                    .replace(/</g, "&lt;")
+                    .replace(/>/g, "&gt;")
+                    .replace(/"/g, "&quot;");
+            }
+
+            // ── Build the output and inject it into #results ──────────────────
+            //
+            // Required format (from the task):
+            //   Article "TITLE" (Page ID PAGEID) was created at MONTH DAY, YEAR.
+            //
+            // We build one line per article, join them with <br> tags so each
+            // line is on its own row inside the <p id="results"> element, and
+            // set innerHTML once — more efficient than appending one by one.
+            var lines = data.map(function(article) {
+                return 'Article "' + escapeHtml(article.title) + '"'
+                    + ' (Page ID ' + article.page_id + ')'
+                    + ' was created at ' + formatDate(article.creation_date) + '.';
+            });
+
+            document.getElementById("results").innerHTML = lines.join("<br>");
+        </script>
+        <script>
+            document.getElementById("code").innerText = document.getElementById("task_id").text;
+        </script>
+    </body>
+</html>
