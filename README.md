@@ -99,8 +99,8 @@ These tasks directly preview the real project work:
 ---
 
 ## References
-- [T418285 — Task 1](https://phabricator.wikimedia.org/T418285)
-- [T418286 — Task 2](https://phabricator.wikimedia.org/T418286)
+- [T418285 - Task 1](https://phabricator.wikimedia.org/T418285)
+- [T418286 - Task 2](https://phabricator.wikimedia.org/T418286)
 - [Wikimedia User-Agent policy](https://meta.wikimedia.org/wiki/User-Agent_policy)
 - [Lusophone wishlist 2025](https://meta.wikimedia.org/wiki/Lista_de_desejos_tecnol%C3%B3gicos_da_lusofonia/2025)
 - [Wikiscore tool](https://wikiscore.toolforge.org/)
